@@ -1,4 +1,4 @@
-class Ball {
+export class Ball {
   constructor(opts) {
     this.x = opts.x || 0;
     this.y = opts.y || 0;
@@ -37,5 +37,3 @@ class Ball {
     }
   }
 }
-
-export default Ball;

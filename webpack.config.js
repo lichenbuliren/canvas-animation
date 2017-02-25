@@ -13,10 +13,12 @@ var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = function (env) {
   return {
     entry: {
-      main: './src/index.js'
+      'view/perspective': './src/view/perspective/index.js',
+      'view/particle': './src/view/particle/index.js',
+      vendors: './src/util/index'
     },
     output: {
-      filename: '[name].[chunkhash].js',
+      filename: '[name]/index.[chunkhash].js',
       path: path.resolve(__dirname, 'dist')
     },
     module: {
@@ -49,24 +51,26 @@ module.exports = function (env) {
         include: path.resolve(__dirname, 'src')
       }),
       new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: './src/index.html'
+        filename: './view/perspective/index.html',
+        template: './src/view/perspective/index.html',
+        chunks: ['vendors', 'manifest', 'view/perspective']
+      }),
+      new HtmlWebpackPlugin({
+        filename: './view/particle/index.html',
+        template: './src/view/particle/index.html',
+        chunks: ['vendors', 'manifest', 'view/particle']
       }),
       new ExtractTextPlugin('styles.[chunkhash].css'),
       // 抽取公共文件
-      // new webpack.optimize.CommonsChunkPlugin({
-      //   // 该插件可以将 webpack 运行产生的编译代码抽取到单独文件 manifest 中，这样子就不会影响最后编译出来的库文件内容的改变
-      //   names: ['vendor', 'manifest'], //vendor libs + extracted manifest
-      //   minChunks: function (module) {
-      //     // 确保公共库文件是从第三方库里面引用的
-      //     return module.context && module.context.indexOf('node_modules') !== -1;
-      //   }
-      // }),
-      // new WebpackMd5Hash(),
-      // new ChunkManifestPlugin({
-      //   filename: 'chunk-manifest.json',
-      //   manifestVariable: 'webpackManifest'
-      // })
+      new webpack.optimize.CommonsChunkPlugin({
+        // 该插件可以将 webpack 运行产生的编译代码抽取到单独文件 manifest 中，这样子就不会影响最后编译出来的库文件内容的改变
+        names: ['vendors', 'manifest'] //vendor libs + extracted manifest
+      }),
+      new WebpackMd5Hash(),
+      new ChunkManifestPlugin({
+        filename: 'chunk-manifest.json',
+        manifestVariable: 'webpackManifest'
+      })
     ],
     devtool: "source-map",
     devServer: {

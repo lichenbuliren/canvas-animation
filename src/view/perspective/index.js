@@ -1,6 +1,5 @@
-import util from './util';
-import Ball from './ball';
-import './index.css';
+import { util, Ball } from '../../util/';
+require('../index.css');
 
 window.onload = function () {
   let canvas = document.getElementById('canvas');
@@ -21,8 +20,8 @@ window.onload = function () {
   canvas.height = document.body.clientHeight;
   canvas.style.backgroundColor = '#000';
   util.drawAxis(canvas, '#fff');
-  
-  window.addEventListener('keydown', function(e) {
+
+  window.addEventListener('keydown', function (e) {
     if (e.keyCode === 38) { //up
       zpos += 5;
     } else if (e.keyCode === 40) {
@@ -35,7 +34,7 @@ window.onload = function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     util.drawAxis(canvas, '#fff');
     if (zpos > -f1) {
-      var scale = f1/(f1 + zpos); // 透视缩放比例
+      var scale = f1 / (f1 + zpos); // 透视缩放比例
       xpos = mouse.x - vpX;
       ypos = mouse.y - vpY;
       ball.scaleX = ball.scaleY = scale;

@@ -98,8 +98,11 @@ var drawAxis = function (canvas, color) {
   ctx.restore();
 };
 
-
-export default { captureMouse, captureTouch, drawAxis }
+export var util = {
+  captureMouse,
+  captureMouse,
+  drawAxis
+}
 
 //动画循环 
 if (!window.requestAnimationFrame) {
@@ -109,7 +112,7 @@ if (!window.requestAnimationFrame) {
       window.msRequestAnimationFrame ||
       window.oRequestAnimationFrame ||
       function (callback) {
-        return window.setTimeout(callback, 17 /*~ 1000/60*/ );
+        return window.setTimeout(callback, 17 /*~ 1000/60*/);
       });
 }
 
