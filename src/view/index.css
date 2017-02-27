@@ -9,3 +9,7 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+#canvas {
+  background-color: #000;
+}

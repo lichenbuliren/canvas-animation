@@ -15,6 +15,7 @@ module.exports = function (env) {
     entry: {
       'view/perspective': './src/view/perspective/index.js',
       'view/particle': './src/view/particle/index.js',
+      'view/rotate': './src/view/rotate/index.js',
       vendors: './src/util/index'
     },
     output: {
@@ -59,6 +60,11 @@ module.exports = function (env) {
         filename: './view/particle/index.html',
         template: './src/view/particle/index.html',
         chunks: ['vendors', 'manifest', 'view/particle']
+      }),
+      new HtmlWebpackPlugin({
+        filename: './view/rotate/index.html',
+        template: './src/view/rotate/index.html',
+        chunks: ['vendors', 'manifest', 'view/rotate']
       }),
       new ExtractTextPlugin('styles.[chunkhash].css'),
       // 抽取公共文件

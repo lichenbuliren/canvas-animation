@@ -4,10 +4,14 @@ require('../index.css');
 window.onload = function () {
   let canvas = document.getElementById('canvas');
   let ctx = canvas.getContext('2d');
+  canvas.width = document.body.clientWidth;
+  canvas.height = document.body.clientHeight;
+  canvas.style.backgroundColor = '#000';
+
   let xpos = 0,
     ypos = 0,
     zpos = 0,
-    f1 = 250, //眼睛距离屏幕距离
+    f1 = 500, //眼睛距离屏幕距离
     vpX = canvas.width / 2, // 消失点
     vpY = canvas.height / 2;
   let ball = new Ball({
@@ -16,16 +20,13 @@ window.onload = function () {
   });
   let mouse = util.captureMouse(canvas);
 
-  canvas.width = document.body.clientWidth;
-  canvas.height = document.body.clientHeight;
-  canvas.style.backgroundColor = '#000';
   util.drawAxis(canvas, '#fff');
 
   window.addEventListener('keydown', function (e) {
     if (e.keyCode === 38) { //up
-      zpos += 5;
+      zpos += 50;
     } else if (e.keyCode === 40) {
-      zpos -= 5;
+      zpos -= 50;
     }
   }, false);
 
