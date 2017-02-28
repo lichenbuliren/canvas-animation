@@ -1,24 +1,25 @@
-import { util, Ball, Particle } from '../../util/';
+import { util, Particle3d } from '../../util/';
 require('../index.css');
 
 window.onload = function () {
   const canvasBody = document.getElementById("canvas");
   const context = canvasBody.getContext("2d");
-  let canvasWidth, canvasHeight;
+  let particles = [], canvasWidth, canvasHeight, centerX, centerY;
   let delay = 200, timer;
+  canvasWidth = canvasBody.width = window.innerWidth;
+  canvasHeight = canvasBody.height = window.innerHeight;
+  canvasWidth = canvasBody.width, canvasHeight = canvasBody.height;
+  centerX = canvasWidth/2, centerY = canvasHeight/2;
   const config = {
     particleColor: '#fff',
     lineColor: '#fff',
-    particleAmount: 200,
-    defaultSpeed: 1,
-    variantSpeed: 1, // 用作速度的随机变量
-    defaultRadius: 2,
-    variantRadius: 1, // 用作半径的随机变量
-    linkRadius: 100 // 两点连线距离
+    particleAmount: 100,
+    defaultRadius: 4,
+    perspective: 400, //视距
+    sphereRadius: 200 //球体半径
   };
-  let particles = [];
+  
   canvasBody.style.backgroundColor = '#000';
-  resizeReset();
   setup();
 
   window.addEventListener('resize', function () {
@@ -34,25 +35,27 @@ window.onload = function () {
 
   function setup() {
     for (var i = 0; i < config.particleAmount; i++) {
-      particles.push(new Particle({
-        canvas: canvasBody,
+      particles.push(new Particle3d({
         x: util.getRandom(0, canvasWidth),
         y: util.getRandom(0, canvasHeight),
-        speed: config.defaultSpeed,
-        variantSpeed: config.variantSpeed,
+        z: util.getRandom(-2000, config.perspective),
+        centerX: centerX,
+        centerY: centerY,
         radius: config.defaultRadius,
-        variantRadius: config.variantRadius,
-        color: config.particleColor
+        color: config.particleColor,
+        perspective: config.perspective
       }));
+      
     }
     requestAnimationFrame(loop);
   }
+  console.log(particles);
 
   function loop() {
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     for (var i = 0; i < particles.length; i++) {
-      particles[i].draw(canvasBody);
+      particles[i].draw(context, config.perspective);
     }
 
     for (let i = 0; i < particles.length; i++) {
@@ -83,5 +86,6 @@ window.onload = function () {
   function resizeReset() {
     canvasWidth = canvasBody.width = window.innerWidth;
     canvasHeight = canvasBody.height = window.innerHeight;
+    console.log(canvasBody.width, canvasBody.height);
   }
 }

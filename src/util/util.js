@@ -98,9 +98,14 @@ var drawAxis = function (canvas, color) {
   ctx.restore();
 };
 
+var getRandom = function(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 export var util = {
   captureMouse,
   captureMouse,
+  getRandom,
   drawAxis
 }
 
