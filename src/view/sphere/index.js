@@ -44,7 +44,7 @@ window.onload = function () {
     // y 坐标：y = r*cos(angleY);
     // z 坐标：z = r*sin(angleY)*sin(angleX);
     var angleY = 0;
-    for (var i = 0; i < 18; i++) { // y 轴 10 等分
+    for (var i = 0; i < 30; i++) { // y 轴 10 等分
       var angleX = 0;
       for (var j = 0; j < 36; j++) { // x 轴 30 等分
         var x = config.sphereRadius * Math.sin(angleY) * Math.cos(angleX);
@@ -56,7 +56,7 @@ window.onload = function () {
           x,
           y,
           z,
-          r: 4,
+          r: 2,
           ballR: config.sphereRadius,
           vpX: centerX,
           vpY: centerY,
@@ -64,24 +64,26 @@ window.onload = function () {
         }));
         angleX += 10;
       }
-      angleY += 10;
+      angleY += 6;
     }
     console.log(angleY, angleX);
     requestAnimationFrame(loop);
   }
-  particles.sort(function(a, b) {
-    return b.z - a.z;
-  });
+  // particles.sort(function(a, b) {
+  //   return b.z - a.z;
+  // });
 
   console.log(particles);
 
   var rotateY = -0.001;
+  var rotateX = 0.001;
   function loop() {
     // rotateY = 0.0001;
     requestAnimationFrame(loop);
     context.clearRect(0, 0, canvasWidth, canvasHeight);
     for (var i = 0; i < particles.length; i++) {
       particles[i].rotateY(rotateY);
+      particles[i].rotateX(rotateX);
       particles[i].draw(context, config.perspective);
     }
   }

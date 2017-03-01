@@ -27,8 +27,8 @@ export class Particle3d {
   rotateY(angle) {
     var cosy = Math.cos(angle);
     var siny = Math.sin(angle);
-    var x1 = this.x * cosy + this.z * siny;
-    var z1 = this.z * cosy - this.x * siny;
+    var x1 = this.x * cosy - this.z * siny;
+    var z1 = this.z * cosy + this.x * siny;
     this.x = x1;
     this.z = z1;
   }
@@ -36,8 +36,8 @@ export class Particle3d {
   rotateX(angle) {
     var cosx = Math.cos(angle);
     var sinx = Math.sin(angle);
-    var z1 = this.z * cosx - this.y * sinx;
-    var y1 = this.y * sinx + this.z * cosx;
+    var y1 = this.y * cosx - this.z * sinx;
+    var z1 = this.z * cosx + this.y * sinx;
     this.y = y1;
     this.z = z1;
   }
